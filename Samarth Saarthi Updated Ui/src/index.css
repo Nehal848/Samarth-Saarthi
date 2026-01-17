@@ -1,0 +1,503 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Aurora Design System
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Premium Black & Gold Theme */
+    --background: 240 100% 0%; /* 00 00 00 */
+    --foreground: 0 0% 100%; /* FF FF FF */
+    
+    /* Primary: Gold */
+    --primary: 42 98% 83%; /* FC A3 11 */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary: Gold */
+    --secondary: 42 98% 83%; /* FC A3 11 */
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Surface */
+    --surface: 225 56% 15%; /* 14 21 3D - Secondary sections */
+    --surface-variant: 225 56% 15%; /* 14 21 3D for cards */
+    --on-surface-variant: 0 0% 100%; /* FF FF FF - Heading color */
+    
+    /* Accent: Gold */
+    --accent: 42 98% 83%; /* FC A3 11 */
+    --accent-secondary: 42 98% 83%; /* FC A3 11 */
+    --accent-tertiary: 42 98% 83%; /* FC A3 11 - Accent numbers/scores */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success: Gold */
+    --success: 42 98% 83%; /* FC A3 11 */
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning: Gold */
+    --warning: 42 98% 83%; /* FC A3 11 */
+    --warning-foreground: 0 0% 0%;
+    
+    /* Error/Destructive */
+    --destructive: 0 85% 55%; /* BA 16 1F */
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Card */
+    --card: 225 56% 15%; /* 14 21 3D for elevated cards */
+    --card-foreground: 0 0% 100%; /* FF FF FF */
+    
+    /* Popover */
+    --popover: 225 56% 15%;
+    --popover-foreground: 0 0% 100%; /* FF FF FF */
+    
+    /* Muted */
+    --muted: 225 56% 15%; /* 14 21 3D */
+    --muted-foreground: 0 0% 90%; /* E5 E5 E5 */
+    
+    /* Border & Input */
+    --border: 42 98% 83%; /* FC A3 11 - Gold */
+    --input: 225 56% 15%; /* 14 21 3D */
+    --ring: 42 98% 83%; /* FC A3 11 - Gold */
+    
+    --radius: 1.125rem; /* 18px for premium corners */
+    
+    /* Sidebar */
+    --sidebar-background: 225 56% 15%; /* 14 21 3D */
+    --sidebar-foreground: 0 0% 100%; /* FF FF FF */
+    --sidebar-primary: 42 98% 83%; /* FC A3 11 */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 42 98% 83%; /* FC A3 11 */
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 42 98% 83%; /* FC A3 11 */
+    --sidebar-ring: 42 98% 83%; /* FC A3 11 */
+    
+    /* Custom: Glassmorphism */
+    --glass: 225 56% 15% / 0.9;
+    --glass-border: 42 98% 83% / 0.3;
+    
+    /* Custom: Gradients (as CSS custom properties) */
+    --gradient-primary: linear-gradient(135deg, #FCA311 0%, #F77F00 100%);
+    --gradient-accent: linear-gradient(135deg, #FCA311 0%, #F77F00 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(42 98% 83% / 0.1), hsl(42 98% 83% / 0.1));
+    
+    /* Karma/Credits colors */
+    --karma: 45 80% 60%; /* Darker yellow */
+    --credits: 45 80% 60%; /* Darker yellow */
+    --alpha-credits: 45 80% 60%; /* Darker yellow */
+  }
+
+  .dark {
+    /* Premium Black & Gold Dark Theme */
+    --background: 240 100% 0%; /* 00 00 00 */
+    --foreground: 0 0% 100%; /* FF FF FF */
+    
+    /* Primary: Gold */
+    --primary: 42 98% 83%; /* FC A3 11 */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary: Gold */
+    --secondary: 42 98% 83%; /* FC A3 11 */
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Surface */
+    --surface: 225 56% 15%; /* 14 21 3D - Secondary sections */
+    --surface-variant: 225 56% 15%; /* 14 21 3D for cards */
+    --on-surface-variant: 0 0% 100%; /* FF FF FF - Heading color */
+    
+    /* Accent: Gold */
+    --accent: 42 98% 83%; /* FC A3 11 */
+    --accent-secondary: 42 98% 83%; /* FC A3 11 */
+    --accent-tertiary: 42 98% 83%; /* FC A3 11 - Accent numbers/scores */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success: Gold */
+    --success: 42 98% 83%; /* FC A3 11 */
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning: Gold */
+    --warning: 42 98% 83%; /* FC A3 11 */
+    --warning-foreground: 0 0% 0%;
+    
+    /* Destructive */
+    --destructive: 0 85% 70%; /* F2 B8 B5 */
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Card */
+    --card: 225 56% 15%; /* 14 21 3D for elevated cards */
+    --card-foreground: 0 0% 100%; /* FF FF FF */
+    
+    /* Popover */
+    --popover: 225 56% 15%;
+    --popover-foreground: 0 0% 100%; /* FF FF FF */
+    
+    /* Muted */
+    --muted: 225 56% 15%; /* 14 21 3D */
+    --muted-foreground: 0 0% 90%; /* E5 E5 E5 */
+    
+    /* Border & Input */
+    --border: 42 98% 83%; /* FC A3 11 - Gold */
+    --input: 225 56% 15%; /* 14 21 3D */
+    --ring: 42 98% 83%; /* FC A3 11 - Gold */
+    
+    /* Sidebar */
+    --sidebar-background: 225 56% 15%; /* 14 21 3D */
+    --sidebar-foreground: 0 0% 100%; /* FF FF FF */
+    --sidebar-primary: 42 98% 83%; /* FC A3 11 */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 42 98% 83%; /* FC A3 11 */
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 42 98% 83%; /* FC A3 11 */
+    --sidebar-ring: 42 98% 83%; /* FC A3 11 */
+    
+    /* Custom: Glassmorphism */
+    --glass: 225 56% 15% / 0.9;
+    --glass-border: 42 98% 83% / 0.3;
+    
+    /* Custom: Gradients */
+    --gradient-primary: linear-gradient(135deg, #FCA311 0%, #F77F00 100%);
+    --gradient-accent: linear-gradient(135deg, #FCA311 0%, #F77F00 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(42 98% 83% / 0.15), hsl(42 98% 83% / 0.15));
+    
+    /* Karma/Credits colors */
+    --karma: 45 80% 60%; /* Darker yellow */
+    --credits: 45 80% 60%; /* Darker yellow */
+    --alpha-credits: 45 80% 60%; /* Darker yellow */
+  }
+  
+  .light {
+    /* Premium Light Theme */
+    --background: 210 30% 98%; /* F9 FA FB - soft off-white */
+    --foreground: 225 45% 15%; /* 14 21 3D - primary text */
+    
+    /* Primary: Gold (same as dark theme) */
+    --primary: 42 98% 83%; /* FC A3 11 */
+    --primary-foreground: 225 45% 15%; /* 14 21 3D - dark text on gold */
+    
+    /* Secondary: Gold (same as dark theme) */
+    --secondary: 0 0% 100%; /* White */
+    --secondary-foreground: 225 45% 15%; /* 14 21 3D */
+    
+    /* Surface */
+    --surface: 0 0% 100%; /* White */
+    --surface-variant: 0 0% 100%; /* White */
+    --on-surface-variant: 225 45% 15%; /* 14 21 3D - heading color */
+    
+    /* Accent: Gold (same as dark theme) */
+    --accent: 42 98% 83%; /* FC A3 11 */
+    --accent-secondary: 42 98% 83%; /* FC A3 11 */
+    --accent-tertiary: 42 98% 83%; /* FC A3 11 - Accent numbers/scores */
+    --accent-foreground: 225 45% 15%; /* 14 21 3D */
+    
+    /* Success */
+    --success: 42 98% 83%; /* FC A3 11 - Gold */
+    --success-foreground: 225 45% 15%; /* 14 21 3D */
+    
+    /* Warning */
+    --warning: 42 98% 83%; /* FC A3 11 - Gold */
+    --warning-foreground: 225 45% 15%; /* 14 21 3D */
+    
+    /* Destructive */
+    --destructive: 0 85% 60%; /* BA 16 1F */
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Card */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 225 45% 15%; /* 14 21 3D */
+    
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 45% 15%; /* 14 21 3D */
+    
+    /* Muted */
+    --muted: 210 25% 95%; /* E5 E7 EB - soft gray */
+    --muted-foreground: 215 20% 30%; /* 37 41 51 - secondary text */
+    
+    /* Border & Input */
+    --border: 210 25% 90%; /* E5 E7 EB - soft gray */
+    --input: 210 25% 95%; /* E5 E7 EB - soft gray */
+    --ring: 42 98% 83%; /* FC A3 11 - Gold */
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%; /* White */
+    --sidebar-foreground: 225 45% 15%; /* 14 21 3D */
+    --sidebar-primary: 42 98% 83%; /* FC A3 11 */
+    --sidebar-primary-foreground: 225 45% 15%; /* 14 21 3D */
+    --sidebar-accent: 42 98% 83%; /* FC A3 11 */
+    --sidebar-accent-foreground: 225 45% 15%; /* 14 21 3D */
+    --sidebar-border: 210 25% 90%; /* E5 E7 EB - soft gray */
+    --sidebar-ring: 42 98% 83%; /* FC A3 11 */
+    
+    /* Custom: Light theme glassmorphism */
+    --glass: 0 0% 100% / 0.9; /* White with transparency */
+    --glass-border: 210 25% 90% / 0.5; /* Soft gray border */
+    
+    /* Custom: Gradients */
+    --gradient-primary: linear-gradient(135deg, #FCA311 0%, #F77F00 100%);
+    --gradient-accent: linear-gradient(135deg, #FCA311 0%, #F77F00 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(42 98% 83% / 0.05), hsl(42 98% 83% / 0.05));
+    
+    /* Karma/Credits colors */
+    --karma: 45 80% 60%; /* Darker yellow */
+    --credits: 45 80% 60%; /* Darker yellow */
+    --alpha-credits: 45 80% 60%; /* Darker yellow */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  /* Material Symbols */
+  .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-card/70 backdrop-blur-xl border border-border/50 rounded-2xl;
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+  
+  /* Gradient background */
+  .gradient-bg {
+    background-image: var(--gradient-primary);
+  }
+  
+  /* Accent gradient */
+  .accent-gradient {
+    background-image: var(--gradient-accent);
+  }
+  
+  /* Hero gradient overlay */
+  .hero-gradient {
+    background-image: var(--gradient-hero);
+  }
+  
+  /* Glow effect */
+  .glow {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.3);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.3);
+  }
+  
+  /* Aurora glow effect */
+  .aurora-glow {
+    box-shadow: 0 0 10px rgba(66, 133, 244, 0.4);
+  }
+  
+  .aurora-glow-lg {
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.6);
+  }
+  
+  /* Premium gradient border */
+  .premium-border {
+    border: 1px solid;
+    border-image: linear-gradient(135deg, rgba(252, 163, 17, 0.3), rgba(247, 127, 0, 0.3)) 1;
+  }
+  
+  /* Premium glassmorphism effect */
+  .premium-glass {
+    background: hsl(var(--glass));
+    backdrop-filter: blur(24px);
+  }
+  
+  /* Premium elevated card */
+  .premium-card {
+    @apply bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border)/0.3)] shadow-card hover:shadow-card-hover transition-all duration-300 relative;
+  }
+  
+  /* Premium gold underline */
+  .premium-underline {
+    position: relative;
+  }
+  
+  .premium-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #FCA311, transparent);
+  }
+  
+  /* Premium glow effect */
+  .premium-glow {
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.4);
+  }
+  
+  /* Premium slow transition */
+  .premium-transition {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  /* Award-like badge */
+  .award-badge {
+    @apply rounded-full border border-[hsl(var(--border)/0.5)] bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent-secondary))] p-0.5;
+  }
+  
+  /* Score ring animation */
+  .score-ring {
+    @apply relative;
+  }
+  
+  .score-ring::before {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    background: conic-gradient(
+      hsl(var(--primary)) var(--score, 0%),
+      hsl(var(--muted)) var(--score, 0%)
+    );
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px));
+  }
+}
+
+@layer utilities {
+  /* Skeleton loading animation */
+  .skeleton-shimmer {
+    @apply relative overflow-hidden;
+  }
+  
+  .skeleton-shimmer::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--muted) / 0.5),
+      transparent
+    );
+    animation: shimmer 1.5s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  /* Hover scale */
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-lift:hover {
+    @apply -translate-y-1 shadow-elevated-2;
+  }
+  
+  /* Ripple effect container */
+  .ripple-container {
+    @apply relative overflow-hidden;
+  }
+  
+  /* Typing indicator dots */
+  .typing-dot {
+    @apply w-2 h-2 rounded-full bg-muted-foreground;
+    animation: typing 1.4s infinite ease-in-out;
+  }
+  
+  .typing-dot:nth-child(1) { animation-delay: 0s; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+  
+  /* Confetti animation base */
+  .confetti-piece {
+    @apply absolute w-2 h-2;
+    animation: confetti-fall 3s ease-out forwards;
+  }
+  
+  @keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+  
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.4); }
+    50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
+  }
+  
+  /* Aurora pulse animation */
+  .aurora-pulse {
+    animation: aurora-pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes aurora-pulse {
+    0%, 100% { box-shadow: 0 0 10px hsl(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 20px hsl(var(--primary) / 0.6), 0 0 30px hsl(var(--accent) / 0.4); }
+  }
+  
+  /* Badge unlock */
+  .badge-unlock {
+    animation: badge-unlock 0.6s ease-out forwards;
+  }
+  
+  @keyframes badge-unlock {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  
+  /* Fade slide up */
+  .fade-slide-up {
+    animation: fade-slide-up 0.5s ease-out forwards;
+  }
+  
+  @keyframes fade-slide-up {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  
+  /* Stagger children animations */
+  .stagger-children > * {
+    opacity: 0;
+    animation: fade-slide-up 0.5s ease-out forwards;
+  }
+  
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+}

@@ -1,0 +1,297 @@
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "./ThemeToggle";
+import { 
+  Home, 
+  BadgeCheck, 
+  Target, 
+  ArrowLeftRight, 
+  Radar, 
+  Users, 
+  GraduationCap, 
+  Menu, 
+  X,
+  TrendingUp,
+  Coins,
+  LogOut,
+  Settings
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+export const Navbar = () => {
+  const { user, logout } = useAuth();
+  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isTrustVisibilityOpen, setIsTrustVisibilityOpen] = useState(false);
+
+  const isActive = (path: string) => location.pathname === path;
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isUserMenuOpen) setIsUserMenuOpen(false);
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isUserMenuOpen]);
+
+  // Define navigation items based on user role
+  const getNavItems = () => {
+    if (user && user.role === 'alumni') {
+      // For alumni, only show Alumni Portal (not dashboard)
+      return [
+        { path: "/alumni-portal", label: "Alumni Portal", icon: Users },
+      ];
+    } else {
+      // For students, show all sections except Alumni Portal
+      return [
+        { path: "/dashboard", label: "Dashboard", icon: Home },
+        { path: "/nexus-feed", label: "Nexus Feed", icon: TrendingUp },
+        { path: "/verify-skills", label: "Verify Skills", icon: BadgeCheck },
+        { path: "/learning", label: "Learning", icon: GraduationCap },
+        { path: "/bounty-board", label: "Bounty Board", icon: Target },
+        { path: "/opportunity-radar", label: "Opportunity Radar", icon: Radar },
+      ];
+    }
+  };
+
+  const navItems = getNavItems();
+
+  return (
+    <>
+      <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link to="/dashboard" className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">CN</span>
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+                Samarth<span className="font-normal">Saarthi</span>
+              </span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <div key={item.path} className="relative">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all relative ${isActive(item.path) ? 'bg-[#4285F4] text-white' : 'text-foreground hover:bg-muted'}`}
+                  >
+                    <Link to={item.path}>
+                      <item.icon className="w-4 h-4" />
+                      {item.label}
+                    </Link>
+                  </Button>
+                  {isActive(item.path) && (
+                    <div className="absolute -bottom-1 left-0 right-0 h-1 bg-[#4285F4] rounded-full aurora-glow"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Right side - Auth/User info */}
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              
+              {user ? (
+                <div className="relative">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="relative h-8 w-8 rounded-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsUserMenuOpen(!isUserMenuOpen);
+                    }}
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                  
+                  <AnimatePresence>
+                    {isUserMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute right-0 mt-2 w-56 rounded-md border bg-popover p-2 text-popover-foreground shadow-lg z-50"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="p-2 border-b">
+                          <p className="text-sm font-medium">{user.name}</p>
+                          <p className="text-xs text-muted-foreground">{user.email}</p>
+                        </div>
+                        <div className="p-2 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm">Karma</span>
+                            <Badge variant="secondary" className="bg-karma/10 text-karma border-karma/20">
+                              {user.trustScore} Trust
+                            </Badge>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm">Nexus</span>
+                            <Badge variant="secondary" className="bg-credits/10 text-credits border-credits/20">
+                              {user.nexusCredits}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm">Alpha</span>
+                            <Badge variant="secondary" className="bg-[hsl(var(--alpha-credits))]/10 text-[hsl(var(--alpha-credits))] border-[hsl(var(--alpha-credits))]/20">
+                              {user.alphaCredits}
+                            </Badge>
+                          </div>
+                        </div>
+                        <div className="p-2 pt-0 space-y-2">
+                          <Button
+                            variant="outline"
+                            className="w-full justify-start"
+                            onClick={() => {
+                              setIsTrustVisibilityOpen(true);
+                              setIsUserMenuOpen(false);
+                            }}
+                          >
+                            <Settings className="w-4 h-4 mr-2" />
+                            Trust & Visibility
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            className="w-full justify-start"
+                            onClick={logout}
+                          >
+                            <LogOut className="w-4 h-4 mr-2" />
+                            Logout
+                          </Button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/auth">Login</Link>
+                </Button>
+              )}
+              
+              {/* Mobile menu button */}
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="md:hidden" 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden overflow-hidden"
+              >
+                <div className="py-4 space-y-2 border-t">
+                  {navItems.map((item) => (
+                    <Button
+                      key={item.path}
+                      variant="ghost"
+                      className={`w-full justify-start rounded-full ${isActive(item.path) ? 'bg-primary text-primary-foreground' : 'text-foreground'}`}
+                      asChild
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Link to={item.path}>
+                        {typeof item.icon === 'function' ? <item.icon className="w-4 h-4 mr-2" /> : <div className="mr-2">{item.icon}</div>}
+                        {item.label}
+                      </Link>
+                    </Button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </nav>
+      
+      {/* Trust and Visibility Modal */}
+      <AnimatePresence>
+        {isTrustVisibilityOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+            onClick={() => setIsTrustVisibilityOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-background rounded-lg w-full max-w-md border"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold">Trust & Visibility</h3>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => setIsTrustVisibilityOpen(false)}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Email Address</label>
+                    <div className="p-3 bg-muted rounded-lg">
+                      <p className="text-sm">{user?.email}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium">WhatsApp</p>
+                      <p className="text-sm text-muted-foreground">Allow others to contact you</p>
+                    </div>
+                    <div className="flex items-center">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <Button className="w-full">
+                    Request Permission
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
